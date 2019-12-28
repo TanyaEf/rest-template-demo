@@ -1,6 +1,7 @@
 package com.course.resttemplatedemo.client;
 
 import com.course.resttemplatedemo.web.model.BeerDto;
+import com.course.resttemplatedemo.web.model.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -42,5 +43,20 @@ public class BreweryClient {
         restTemplate.delete(apihost + BEER_PATH_V1 + uuid.toString());
     }
 
+    public CustomerDto getCustomerById(UUID uuid) {
+        return restTemplate.getForObject(apihost + BEER_PATH_V1 + uuid.toString(), CustomerDto.class);
+    }
+
+    public URI saveNewCustomer(CustomerDto customerDto) {
+        return restTemplate.postForLocation(apihost + BEER_PATH_V1, customerDto);
+    }
+
+    public void updateCustomer(UUID uuid, CustomerDto customerDto) {
+        restTemplate.put(apihost + BEER_PATH_V1 + uuid.toString(), customerDto);
+    }
+
+    public void deleteCustomer(UUID uuid) {
+        restTemplate.delete(apihost + BEER_PATH_V1 + uuid.toString());
+    }
 
 }
